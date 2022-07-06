@@ -19,7 +19,7 @@
         <div class="product-display">
             <div class="product-container">
                 <div class="product-image">
-                    <img :src="image">
+                    <img :class="{outOfStockImg: !inStock}" :src="image">
                 </div>
                 <div class="product-info">
                     <h1>{{ product }}</h1>
@@ -29,8 +29,8 @@
                     <ul>
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
-                    <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)" class="color-circle">{{ variant.color }}</div>
-                    <button class=" button " @click="addToCart ">Add to Cart</button>
+                    <div v-for="(variant,index) in variants" :key="variant.id" @mouseover="updateVarinat(index)" class="color-circle" :style="{backgroundColor: variant.color}">{{ variant.color }}</div>
+                    <button class=" button " :disabled="!inStock" :class="{disabledButton: !inStock}" @click="addToCart ">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -38,6 +38,7 @@
 
     <!-- Import Js -->
     <script src="./main.js "></script>
+    
     <script>
         const mountedApp = app.mount('#app')
     </script>
