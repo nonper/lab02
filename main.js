@@ -12,7 +12,7 @@ const app = Vue.createApp({
             selectedVariant: 0,
             cart: 0,
             onSale: true,
-
+            premium: true,
         }
     },
     methods: {
@@ -38,6 +38,6 @@ const app = Vue.createApp({
         },
         inStock(){
             return this.variants[this.selectedVariant].quantity
-        },
+        }
     }
 })
