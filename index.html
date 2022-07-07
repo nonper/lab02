@@ -22,13 +22,14 @@
         </div>
 
         <product-display :premium="premium" @add-to-cart="updateCart" @clear-cart="clearCart"></product-display>
-        <product-component :details="details"></product-component>
+        
     </div>
 
     <!-- Import Js -->
     <script src="./main.js "></script>
     <!-- Import Components -->
     <script src="./components/ProductDisplay.js"></script>
+    <script src="./components/ReviewList.js"></script>
     <script>
         const mountedApp = app.mount('#app')
     </script>

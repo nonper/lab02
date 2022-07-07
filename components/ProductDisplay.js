@@ -19,6 +19,7 @@ app.component('product-display', {
                     <p v-if="inStock">In stock</p>
                     <p v-else>Out of Stock</p>
                     <p>Shipping: {{ shipping }} </p>
+                    <product-component :details="details"></product-component>
 
                     <div 
                         v-for="(variant, index) in variants" 
@@ -42,6 +43,8 @@ app.component('product-display', {
                         Clear Cart
                     </button>
                 </div>
+                    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+                    <review-form @review-submited="addReview"></review-form>
             </div>
         </div>`, 
         data() {
@@ -56,7 +59,7 @@ app.component('product-display', {
                 ],
                 activeClass: true,
                 selectedVariant: 0,
-                cart: 0,
+                reviews:[],
                 onSale: true,
     
             }
@@ -73,6 +76,9 @@ app.component('product-display', {
             },
             updateVariant(index){
                 this.selectedVariant = index;
+            },
+            addReview(review) {
+                this.reviews.push(review)
             }
         },
         computed: {
@@ -111,3 +117,65 @@ app.component('product-component', {
             <li v-for="detail in details">{{ detail }}</li>
         </ul>`
 })
+
+app.component('review-form', {
+    template:
+        /*html*/
+        `<form class="review-form" @submit.prevent="onSubmit">
+            <h3>Leave a review</h3>
+                <label for="name">Name:</label>
+
+            <input id="name" v-model="name">
+
+                <label for="review">Review:</label>  
+
+                <textarea id="review" v-model="review"></textarea>
+            
+                <label for="rating">Rating:</label>
+
+                <select id="rating" v-model.number="rating">
+
+                <option>5</option>
+                <option>4</option>
+                <option>3</option>
+                <option>2</option>
+                <option>1</option>
+
+                </select>
+
+                <label for="rec">Would you recommend this product?:</label>  
+
+                <textarea id="rec" v-model="rec"></textarea>
+
+            <input class="button" type="submit" value="Submit">
+        </form>`,
+        data() {
+            return {
+                name: '',
+                review: '',
+                rating: null,
+                rec: '',
+            }
+        },
+        methods: {
+            onSubmit() {
+                if (this.name === '' || this.review === '' || this.rating === null){
+                    alert('Review is incomplete. Please fill out every field.')
+                    return
+                }
+
+                let productReview = {
+                    name: this.name,
+                    review: this.review,
+                    rating: this.rating,
+                    rec: this.rec
+                }
+                this.$emit('review-submited', productReview)
+
+                this.name = ''
+                this.review = ''
+                this.rating = null
+                this.rec = ''
+            }
+        }
+})                                   
