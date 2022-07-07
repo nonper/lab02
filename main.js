@@ -10,34 +10,32 @@ const app = Vue.createApp({
                 { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 0 }
             ],
             selectedVariant: 0,
-            cart: 0,
+            cart: ['2234: 0'],
+            cart2: ['2235: 0'],
             onSale: true,
             premium: true,
+            countF: 0,
+            countS: 0,
         }
     },
     methods: {
-        addToCart() {
-            this.cart += 1
+        updateCart(id) {
+            if (id == 2234) {
+                this.countF += 1;
+                this.cart.splice(0);
+                this.cart.push(id + ': ' + this.countF);
+
+            } else if (id == 2235) {
+                this.countS += 1;
+                this.cart2.splice(0);
+                this.cart2.push(id + ': ' + this.countS);
+            }   
         },
-        updateImage(variantImage) {
-            this.image = variantImage
-        },
-        updateVariant(index){
-            this.selectedVariant = index;
-        }
-    },
-    computed: {
-        title() {
-            if(!this.onSale){
-                return this.brand + ' ' + this.product
-            }
-            return this.brand + ' ' + this.product + ' is on sale.'
-        },
-        image(){
-            return this.variants[this.selectedVariant].image
-        },
-        inStock(){
-            return this.variants[this.selectedVariant].quantity
+        clearCart(){
+            this.cart.splice(0);
+            this.cart.push('2234: 0');
+            this.cart2.splice(0);
+            this.cart2.push('2235: 0');
         }
     }
 })

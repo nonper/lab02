@@ -14,9 +14,14 @@
     <div id="app">
         <div class="nav-bar"></div>
 
-        <div class="cart">Cart({{ cart }})</div>
+        <div class="cart">Cart
+            <ul>
+                <li v-for="detail in cart">{{ detail }}</li>
+                <li v-for="detail in cart2">{{ detail }}</li>
+            </ul>
+        </div>
 
-        <product-display :premium="premium"></product-display>
+        <product-display :premium="premium" @add-to-cart="updateCart" @clear-cart="clearCart"></product-display>
         <product-component :details="details"></product-component>
     </div>
 
