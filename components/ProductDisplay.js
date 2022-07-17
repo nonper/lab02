@@ -40,7 +40,13 @@ app.component('product-display', {
                     <button
                         class="button"
                         v-on:click="clearCart">
-                        Clear Cart
+                        Reduce from Cart
+                    </button>
+
+                    <button
+                        class="button"
+                        v-on:click="clearAllCart">
+                        Reduce from Cart
                     </button>
                 </div>
                     <review-list v-if="reviews.length" :reviews="reviews"></review-list>
@@ -72,7 +78,10 @@ app.component('product-display', {
                 this.image = variantImage
             },
             clearCart() {
-                this.$emit('clear-cart')
+                this.$emit('clear-cart', this.variants[this.selectedVariant].id)
+            },
+            clearAllCart() {
+                this.$emit('clear-all-cart')
             },
             updateVariant(index){
                 this.selectedVariant = index;

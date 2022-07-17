@@ -31,11 +31,27 @@ const app = Vue.createApp({
                 this.cart2.push(id + ': ' + this.countS);
             }   
         },
-        clearCart(){
-            this.cart.splice(0);
-            this.cart.push('2234: 0');
-            this.cart2.splice(0);
-            this.cart2.push('2235: 0');
+        clearCart(id){
+            if (id == 2234 && this.countF > 0) {
+                this.countF -= 1;
+                this.cart.splice(0);
+                this.cart.push(id + ': ' + this.countF);
+
+            } else if (id == 2235 && this.countS > 0) {
+                this.countS -= 1;
+                this.cart2.splice(0);
+                this.cart2.push(id + ': ' + this.countS);
+            }   
+        },
+        clearAllCart(){
+            this.cart.splice(0)
+            this.cart2.splice(0)
+
+            this.countF = 0
+            this.countS = 0
+            
+            this.cart.push('2234: '+this.countF)
+            this.cart2.push('2235: '+this.countS)
         }
     }
 })
